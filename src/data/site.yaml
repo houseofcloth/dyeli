@@ -1,0 +1,25 @@
+%YAML 1.2
+---
+# Site Name
+title: Awesome Company
+# Standard <meta> tag stuff
+# If using `/` as a redirect, these aren't really required
+meta:
+  description: Awesome Company URL shortener and landing page site.
+  keywords:
+    - url-shortener
+    - node
+    - shortener
+    - nunjucks
+    - eleventy
+    - cloudflare
+  robots:
+    - noindex
+    - nofollow
+    - noarchive
+# Domain for this site
+homepage: https://sh0.rt
+# Main website
+mainSite: https://example.com
+# If remaining open source
+repository: https://github.com/YOUR_NAME_OR_ORG/REPOSITORY_NAME

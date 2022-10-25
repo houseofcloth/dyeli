@@ -1,0 +1,17 @@
+# CHANGELOG
+
+Cloned from [`siqli@2.2.4`](https://siq.li/git). Changes as follows.
+
+## Worker
+- Removed `www` checking;
+- Added `robots.txt`;
+- Simplified Cache-Control headers;
+- Removed private links page;
+- Pull favicon from external source;
+- Redirect domain root instead of loading page;
+- Change import paths compatible with Eleventy build;
+- 
+
+## Site
+- Use Eleventy to build link page;
+- 

@@ -1,0 +1,102 @@
+---
+permalink: "{{page.fileSlug}}.html"
+---
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="generator" content="{{ eleventy.generator }}">
+    <title>{{ title }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    {# Uses robots from page, otherwise default #}
+    <meta name="robots" content="{{ meta.robots | default(site.meta.robots) }}">
+
+    {# Use page meta description, site, or omit #}
+    {%if meta.description-%}
+    <meta name="description" content="{{ meta.description }}">
+    {%elif site.meta.description-%}
+    <meta name="description" content="{{ site.meta.description }}">
+    {%endif-%}
+    
+    {# Use page meta keywords, site, or omit #}
+    {%if meta.keywords-%}
+    <meta name="keywords" content="{{ meta.keywords }}">
+    {%elif site.meta.keywords-%}
+    <meta name="keywords" content="{{ site.meta.keywords }}">
+    {%endif-%}
+    
+    {# Canonical #}
+    <link rel="canonical" href="{{ pkg.homepage }}{{ page.filePathStem }}">
+
+    {# Inline CSS #}
+    {% set css %}
+      {% include "styles.css" %}
+    {% endset %}
+    <style nonce="e36adc6a4f48">{{ css | cssmin | safe }}</style>
+    
+    {# Favion #}
+    <link rel="icon" href="/favicon.png" type="image/png">
+
+    {# You may wish to use a different referrer policy #}
+    <meta name="referrer" content="no-referrer">
+  </head>
+  <body>
+    
+    <header>
+      <a class="logo" href="{{ site.mainSite | safe }}" title="{{ site.title }}">{% include "logo.svg" %}</a>
+      {% if nav %}
+      <nav>
+        {% for item in nav %}
+        <a href="{{ item.url }}" title="{{ item.title | default(item.text) }}">{{ item.text }}</a>
+        {% endfor %}
+      </nav>
+      {% endif %}
+    </header>
+
+    <main id="links">
+
+    {% if content %}
+      <section class="announcement">
+        {{ content | safe }}
+      </section>
+    {% endif %}
+
+      <section class="cards">
+        {% for card in cards %}
+          <a class="card" href="{{ card.url }}" title="{{ card.title }}">
+            <img
+              src="{{ card.img | safe }}"
+              alt="{{ card.title }}"
+              {%if loop.index > 9%}
+              loading="lazy"
+              {%endif%}
+            >
+            <div class="text">
+              <h3>{{ card.title }}</h3>
+            </div>
+          </a>
+        {% endfor %}
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      {% if socials %}
+      <section id="socials">
+        {% for platform in socials %}
+        <a href="{{ platform.url | safe }}" title="{{ site.title }} {{ platform.name }}">{% include platform.icon %}</a>
+        {% endfor %}
+      </section>
+      {%endif%}
+
+      <div class="copyright">
+        {{ footer | marked | safe }}
+        <p class="center">&copy; {% copyrightYear %} <a href="{{ site.mainSite }}" title="{{ site.title }}">{{ site.title }}</a>{%if site.repository%} | <a href="{{ site.repository }}" title="GitHub">GitHub</a>{%endif%}</p>
+      </div>
+    </footer>
+
+    <!-- Date: {{ buildDate }} -->
+
+  </body>
+</html>
